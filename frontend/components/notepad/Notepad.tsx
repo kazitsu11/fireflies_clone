@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DetailHeader } from "./DetailHeader";
 import { InsightsPanel } from "./InsightsPanel";
 import { ActionItems } from "./ActionItems";
+import { AskPanel } from "./AskPanel";
 import { MediaPlayer } from "./MediaPlayer";
 import { PlayerProvider } from "./PlayerContext";
 import { SummaryPanel } from "./SummaryPanel";
@@ -90,6 +91,7 @@ export function Notepad({ id }: { id: string }) {
           <div className="space-y-8 p-4 sm:p-6">
             <SummaryPanel meeting={meeting} />
             <ActionItems meeting={meeting} />
+            <AskPanel meetingId={meeting.id} />
           </div>
         </section>
 

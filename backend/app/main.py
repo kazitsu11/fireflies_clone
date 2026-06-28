@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 
 from . import crud, schemas
 from .database import get_db
-from .routers import action_items, meetings, search
+from .routers import action_items, ai, meetings, search
 
 app = FastAPI(
     title="Fireflies Clone API",
@@ -38,6 +38,7 @@ app.add_middleware(
 app.include_router(meetings.router)
 app.include_router(action_items.router)
 app.include_router(search.router)
+app.include_router(ai.router)
 
 _misc = APIRouter(prefix="/api", tags=["misc"])
 

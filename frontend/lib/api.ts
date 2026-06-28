@@ -74,6 +74,15 @@ export const api = {
   // ---- Misc ----
   getMe: () => request<User>("/api/me"),
 
+  // ---- Optional AI Q&A ----
+  getAiStatus: () => request<{ enabled: boolean }>("/api/ai/status"),
+
+  askMeeting: (meetingId: string, question: string) =>
+    request<{ answer: string }>(`/api/meetings/${meetingId}/ask`, {
+      method: "POST",
+      body: JSON.stringify({ question }),
+    }),
+
   // ---- Meetings ----
   listMeetings: (params: MeetingListParams = {}) =>
     request<MeetingListItem[]>(
