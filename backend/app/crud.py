@@ -285,9 +285,70 @@ def replace_summary(
     db.commit()
 
 
+def meeting_exists(db: Session, meeting_id: str) -> bool:
+    return db.get(models.Meeting, meeting_id) is not None
+
+
+# --------------------------------------------------------------------------- #
+# Transcript / search
+# --------------------------------------------------------------------------- #
+def get_segments(db: Session, meeting_id: str) -> list[models.TranscriptSegment]:
+    stmt = (
+        select(models.TranscriptSegment)
+        .where(models.TranscriptSegment.meeting_id == meeting_id)
+        .order_by(models.TranscriptSegment.idx)
+    )
+    return list(db.scalars(stmt).all())
+
+
+def search_transcript(
+    db: Session, meeting_id: str, q: str
+) -> list[models.TranscriptSegment]:
+    stmt = (
+        select(models.TranscriptSegment)
+        .where(
+            models.TranscriptSegment.meeting_id == meeting_id,
+            models.TranscriptSegment.text.ilike(f"%{q}%"),
+        )
+        .order_by(models.TranscriptSegment.idx)
+    )
+    return list(db.scalars(stmt).all())
+
+
+def search_titles(db: Session, q: str) -> list[models.Meeting]:
+    stmt = (
+        select(models.Meeting)
+        .where(models.Meeting.title.ilike(f"%{q}%"))
+        .order_by(models.Meeting.date.desc())
+    )
+    return list(db.scalars(stmt).all())
+
+
+def search_segments_global(
+    db: Session, q: str, limit: int = 50
+) -> list[models.TranscriptSegment]:
+    stmt = (
+        select(models.TranscriptSegment)
+        .where(models.TranscriptSegment.text.ilike(f"%{q}%"))
+        .options(selectinload(models.TranscriptSegment.meeting))
+        .order_by(models.TranscriptSegment.meeting_id, models.TranscriptSegment.idx)
+        .limit(limit)
+    )
+    return list(db.scalars(stmt).all())
+
+
 # --------------------------------------------------------------------------- #
 # Action items
 # --------------------------------------------------------------------------- #
+def list_action_items(db: Session, meeting_id: str) -> list[models.ActionItem]:
+    stmt = (
+        select(models.ActionItem)
+        .where(models.ActionItem.meeting_id == meeting_id)
+        .order_by(models.ActionItem.created_at)
+    )
+    return list(db.scalars(stmt).all())
+
+
 def get_action_item(db: Session, item_id: str) -> models.ActionItem | None:
     return db.get(models.ActionItem, item_id)
 
