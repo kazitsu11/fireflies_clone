@@ -24,6 +24,7 @@ function titleFor(pathname: string): string {
   if (pathname === "/meetings/new") return "New meeting";
   if (pathname.startsWith("/meetings/")) return "Meeting";
   if (pathname.startsWith("/settings")) return "Settings";
+  if (pathname.startsWith("/search")) return "Search";
   return "Fireflies";
 }
 
@@ -36,7 +37,7 @@ export function Topbar({ onToggleSidebar }: { onToggleSidebar: () => void }) {
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const q = query.trim();
-    router.push(q ? `/meetings?q=${encodeURIComponent(q)}` : "/meetings");
+    router.push(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
   };
 
   return (
