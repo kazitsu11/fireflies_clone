@@ -70,6 +70,7 @@ export function Topbar({ onToggleSidebar }: { onToggleSidebar: () => void }) {
       <div className="ml-auto flex items-center gap-1.5 sm:ml-0">
         <Button
           size="sm"
+          nativeButton={false}
           className="gap-1.5 font-medium shadow-sm"
           render={<Link href="/meetings/new" />}
         >
