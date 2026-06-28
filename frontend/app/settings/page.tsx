@@ -1,10 +1,5 @@
-import { ComingSoon } from "@/components/layout/ComingSoon";
+import { SettingsPage } from "@/components/settings/SettingsPage";
 
-export default function SettingsPage() {
-  return (
-    <ComingSoon
-      title="Settings"
-      description="Workspace preferences, integrations, and team management are coming soon."
-    />
-  );
+export default function Settings() {
+  return <SettingsPage />;
 }
