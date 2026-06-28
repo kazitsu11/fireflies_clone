@@ -22,10 +22,12 @@ export function Transcript({
   segments,
   query,
   currentMatchSegmentId,
+  scrollToSegmentId,
 }: {
   segments: Segment[];
   query?: string;
   currentMatchSegmentId?: string | null;
+  scrollToSegmentId?: string | null;
 }) {
   const { currentMs, seekTo } = usePlayer();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -63,6 +65,19 @@ export function Transcript({
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     el.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
   }, [activeIdx, segments]);
+
+  // Scroll the current search match into view as the user steps through matches.
+  useEffect(() => {
+    if (!scrollToSegmentId) return;
+    const seg = segments.find((s) => s.id === scrollToSegmentId);
+    if (!seg) return;
+    const el = containerRef.current?.querySelector<HTMLElement>(
+      `[data-line-idx="${seg.idx}"]`,
+    );
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+  }, [scrollToSegmentId, segments]);
 
   return (
     <div

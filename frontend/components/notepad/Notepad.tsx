@@ -12,7 +12,7 @@ import { DetailHeader } from "./DetailHeader";
 import { InsightsPanel } from "./InsightsPanel";
 import { MediaPlayer } from "./MediaPlayer";
 import { PlayerProvider } from "./PlayerContext";
-import { Transcript } from "./Transcript";
+import { TranscriptPanel } from "./TranscriptPanel";
 
 type Tab = "summary" | "transcript";
 
@@ -103,7 +103,7 @@ export function Notepad({ id }: { id: string }) {
             "lg:flex",
           )}
         >
-          <Transcript segments={meeting.segments} />
+          <TranscriptPanel segments={meeting.segments} />
         </section>
       </div>
     </div>
