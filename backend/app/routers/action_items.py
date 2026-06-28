@@ -1,7 +1,7 @@
 """Action-item endpoints.
 
 Meeting-scoped collection routes live under /api/meetings/{id}/action-items;
-item-scoped mutations live under /api/action-items/{id} (matching CLAUDE.md §4.2).
+item-scoped mutations live under /api/action-items/{id}.
 """
 
 from __future__ import annotations

@@ -19,7 +19,7 @@ from . import models, schemas
 # Users
 # --------------------------------------------------------------------------- #
 def get_or_create_default_user(db: Session) -> models.User:
-    """The app assumes a single logged-in user (see CLAUDE.md §2.5)."""
+    """The app assumes a single logged-in user (no real auth yet)."""
     user = db.scalar(select(models.User).limit(1))
     if user is None:
         user = models.User(

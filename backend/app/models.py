@@ -1,6 +1,6 @@
 """SQLAlchemy ORM models.
 
-Schema (see CLAUDE.md §3):
+Schema:
   - A meeting has many transcript_segments, participants, keywords, action_items.
   - A meeting has exactly one summary (1:1); a summary has many chapters.
   - Cascades clean up all children when a meeting (or summary) is deleted.

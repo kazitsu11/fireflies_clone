@@ -20,5 +20,5 @@ frontend/.env*.local
 .idea/
 .vscode/
 
-# Local Claude Code settings
+# Local tooling / editor settings
 .claude/

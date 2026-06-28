@@ -1,7 +1,7 @@
 """Ask-a-question over a meeting transcript.
 
 Strictly optional and behind the same env-key check as the summarizer
-(see CLAUDE.md §4.4 graceful-degradation pattern): when no API key is present,
+(graceful-degradation pattern): when no API key is present,
 `ai_enabled()` is False and the endpoint disables cleanly — the feature never
 breaks the page or the deployed demo.
 """
