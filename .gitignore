@@ -19,3 +19,6 @@ frontend/.env*.local
 *.swp
 .idea/
 .vscode/
+
+# Local Claude Code settings
+.claude/
