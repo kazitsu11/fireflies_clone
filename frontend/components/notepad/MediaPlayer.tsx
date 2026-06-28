@@ -58,7 +58,10 @@ export function MediaPlayer({ src }: { src: string }) {
         </Button>
       </div>
 
-      <span className="w-12 shrink-0 text-right text-xs tabular-nums text-muted-foreground">
+      <span
+        data-player-ms={Math.round(currentMs)}
+        className="w-12 shrink-0 text-right text-xs tabular-nums text-muted-foreground"
+      >
         {msToClock(currentMs)}
       </span>
 

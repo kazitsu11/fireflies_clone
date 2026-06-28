@@ -12,6 +12,7 @@ import { DetailHeader } from "./DetailHeader";
 import { InsightsPanel } from "./InsightsPanel";
 import { MediaPlayer } from "./MediaPlayer";
 import { PlayerProvider } from "./PlayerContext";
+import { Transcript } from "./Transcript";
 
 type Tab = "summary" | "transcript";
 
@@ -102,11 +103,7 @@ export function Notepad({ id }: { id: string }) {
             "lg:flex",
           )}
         >
-          <div className="flex-1 overflow-y-auto p-4">
-            <div className="rounded-xl border border-dashed p-6 text-sm text-muted-foreground">
-              Transcript + two-way sync — step 13
-            </div>
-          </div>
+          <Transcript segments={meeting.segments} />
         </section>
       </div>
     </div>
