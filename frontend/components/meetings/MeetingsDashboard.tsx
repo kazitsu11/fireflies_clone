@@ -96,7 +96,7 @@ export function MeetingsDashboard() {
             <>
               <span className="font-medium text-foreground">{count}</span>{" "}
               {count === 1 ? "meeting" : "meetings"}
-              {active && " match your filters"}
+              {active && (count === 1 ? " matches your filters" : " match your filters")}
             </>
           )}
         </p>

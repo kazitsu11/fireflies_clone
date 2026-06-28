@@ -51,8 +51,13 @@ const COMING_SOON: { label: string; icon: LucideIcon }[] = [
 
 function isActive(href: string, pathname: string): boolean {
   if (href === "/") return pathname === "/";
-  if (href === "/meetings")
-    return pathname === "/meetings" || pathname.startsWith("/meetings/");
+  if (href === "/meetings") {
+    // Active on the list and meeting detail, but not on the Upload route.
+    return (
+      pathname === "/meetings" ||
+      (pathname.startsWith("/meetings/") && pathname !== "/meetings/new")
+    );
+  }
   return pathname === href;
 }
 
