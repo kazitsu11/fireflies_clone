@@ -58,6 +58,7 @@ export function MeetingRow({ meeting }: { meeting: MeetingListItem }) {
   return (
     <>
       <div
+        data-meeting-row
         role="button"
         tabIndex={0}
         onClick={goToDetail}

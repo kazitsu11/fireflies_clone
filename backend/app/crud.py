@@ -112,6 +112,7 @@ def list_meetings(
     *,
     q: str | None = None,
     participant: str | None = None,
+    keyword: str | None = None,
     date_from=None,
     date_to=None,
     min_duration: int | None = None,
@@ -131,6 +132,11 @@ def list_meetings(
             models.Meeting.participants.any(
                 models.Participant.name.ilike(f"%{participant}%")
             )
+        )
+    if keyword:
+        # Exact (case-insensitive) tag match.
+        stmt = stmt.where(
+            models.Meeting.keywords.any(models.Keyword.term.ilike(keyword))
         )
     if date_from is not None:
         stmt = stmt.where(models.Meeting.date >= date_from)

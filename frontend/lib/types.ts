@@ -117,6 +117,7 @@ export interface GlobalSearchHit {
 export interface MeetingListParams {
   q?: string;
   participant?: string;
+  keyword?: string;
   date_from?: string;
   date_to?: string;
   min_duration?: number;

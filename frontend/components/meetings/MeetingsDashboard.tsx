@@ -3,11 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2, Tag } from "lucide-react";
 
 import { api } from "@/lib/api";
 import type { MeetingListParams } from "@/lib/types";
 import { useDebounce } from "@/lib/useDebounce";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   DEFAULT_FILTERS,
@@ -40,6 +41,7 @@ export function MeetingsDashboard() {
     () => ({
       q: debouncedSearch.trim() || undefined,
       participant: filters.participant !== "all" ? filters.participant : undefined,
+      keyword: filters.keyword || undefined,
       date_from: filters.dateFrom || undefined,
       date_to: filters.dateTo || undefined,
       min_duration:
@@ -49,6 +51,7 @@ export function MeetingsDashboard() {
     [
       debouncedSearch,
       filters.participant,
+      filters.keyword,
       filters.dateFrom,
       filters.dateTo,
       filters.minDuration,
@@ -81,12 +84,45 @@ export function MeetingsDashboard() {
     return Array.from(set).sort();
   }, [allMeetings]);
 
+  const allTags = useMemo(() => {
+    const set = new Set<string>();
+    allMeetings?.forEach((m) => m.keywords.forEach((k) => set.add(k.term)));
+    return Array.from(set).sort();
+  }, [allMeetings]);
+
   const active = filtersAreActive(filters);
   const count = meetings?.length ?? 0;
 
   return (
     <div className="mx-auto max-w-6xl space-y-4 p-4 sm:p-6">
       <MeetingFilters value={filters} onChange={patch} participantNames={participantNames} />
+
+      {allTags.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="mr-1 inline-flex items-center gap-1 text-xs font-medium text-muted-foreground">
+            <Tag className="size-3.5" />
+            Tags
+          </span>
+          {allTags.map((t) => {
+            const tagActive = filters.keyword === t;
+            return (
+              <button
+                key={t}
+                onClick={() => patch({ keyword: tagActive ? "" : t })}
+                aria-pressed={tagActive}
+                className={cn(
+                  "rounded-full border px-2.5 py-0.5 text-xs font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring",
+                  tagActive
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-foreground/70 hover:bg-accent hover:text-foreground",
+                )}
+              >
+                {t}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       <div className="flex h-6 items-center justify-between">
         <p className="text-sm text-muted-foreground">

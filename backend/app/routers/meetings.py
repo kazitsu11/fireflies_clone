@@ -64,6 +64,7 @@ def _generate_and_store_summary(db: Session, meeting) -> None:
 def list_meetings(
     q: str | None = Query(None, description="Search by title"),
     participant: str | None = Query(None),
+    keyword: str | None = Query(None, description="Filter by an exact keyword/tag"),
     date_from: datetime | None = Query(None),
     date_to: datetime | None = Query(None),
     min_duration: int | None = Query(None, ge=0),
@@ -74,6 +75,7 @@ def list_meetings(
         db,
         q=q,
         participant=participant,
+        keyword=keyword,
         date_from=date_from,
         date_to=date_to,
         min_duration=min_duration,

@@ -16,6 +16,7 @@ export type SortValue = "recent" | "oldest" | "longest" | "title";
 export interface Filters {
   search: string;
   participant: string; // "all" or a participant name
+  keyword: string; // "" or an exact tag
   dateFrom: string; // yyyy-mm-dd or ""
   dateTo: string;
   minDuration: string; // "any" or seconds as string
@@ -25,6 +26,7 @@ export interface Filters {
 export const DEFAULT_FILTERS: Filters = {
   search: "",
   participant: "all",
+  keyword: "",
   dateFrom: "",
   dateTo: "",
   minDuration: "any",
@@ -35,6 +37,7 @@ export function filtersAreActive(f: Filters): boolean {
   return (
     f.search.trim() !== "" ||
     f.participant !== "all" ||
+    f.keyword !== "" ||
     f.dateFrom !== "" ||
     f.dateTo !== "" ||
     f.minDuration !== "any"
