@@ -159,7 +159,7 @@ items). It also runs `Base.metadata.create_all`, so it works on a fresh database
 
 ## Deployment
 
-See [DEPLOY.md](DEPLOY.md) for the full step-by-step. Summary:
+Summary:
 
 - **Backend → Render / Railway** (FastAPI + SQLite). SQLite is ephemeral and resets
   on redeploy, so the start command **reseeds on boot** to guarantee the 5 demo
