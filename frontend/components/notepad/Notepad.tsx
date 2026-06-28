@@ -10,8 +10,10 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DetailHeader } from "./DetailHeader";
 import { InsightsPanel } from "./InsightsPanel";
+import { ActionItems } from "./ActionItems";
 import { MediaPlayer } from "./MediaPlayer";
 import { PlayerProvider } from "./PlayerContext";
+import { SummaryPanel } from "./SummaryPanel";
 import { TranscriptPanel } from "./TranscriptPanel";
 
 type Tab = "summary" | "transcript";
@@ -85,13 +87,9 @@ export function Notepad({ id }: { id: string }) {
             "lg:block",
           )}
         >
-          <div className="space-y-6 p-4 sm:p-6">
-            <div id="overview" className="rounded-xl border border-dashed p-6 text-sm text-muted-foreground">
-              Summary (overview, keywords, chapters) — step 15
-            </div>
-            <div id="action-items" className="rounded-xl border border-dashed p-6 text-sm text-muted-foreground">
-              Action items — step 15
-            </div>
+          <div className="space-y-8 p-4 sm:p-6">
+            <SummaryPanel meeting={meeting} />
+            <ActionItems meeting={meeting} />
           </div>
         </section>
 
