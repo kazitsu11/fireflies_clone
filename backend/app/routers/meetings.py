@@ -30,7 +30,7 @@ from sqlalchemy.orm import Session
 
 from .. import crud, schemas
 from ..database import get_db
-from ..services import transcript_parser
+from ..services import summarizer, transcript_parser
 
 router = APIRouter(prefix="/api/meetings", tags=["meetings"])
 
@@ -40,6 +40,24 @@ MAX_UPLOAD_BYTES = 5 * 1024 * 1024  # 5 MB cap on transcript uploads
 def _segments_from_parsed(parsed: list[dict]) -> list[schemas.SegmentCreate]:
     """Parser dicts -> SegmentCreate (idx already assigned by the parser)."""
     return [schemas.SegmentCreate(**seg) for seg in parsed]
+
+
+def _generate_and_store_summary(db: Session, meeting) -> None:
+    """Run the summarizer over a meeting's segments and persist the result.
+
+    Replaces overview/keywords/chapters AND action items, since all are AI-
+    derived notes (regenerating re-derives them).
+    """
+    result = summarizer.generate_summary(meeting.segments, language=meeting.language)
+    crud.replace_summary(
+        db,
+        meeting,
+        overview=result["overview"],
+        generated_by=result["generated_by"],
+        keywords=result["keywords"],
+        chapters=result["chapters"],
+        action_items=result["action_items"],
+    )
 
 
 @router.get("", response_model=list[schemas.MeetingListItem])
@@ -95,6 +113,9 @@ def create_meeting(
     meeting = crud.create_meeting(
         db, payload, segments=segments, organizer_id=user.id
     )
+    if payload.generate_summary and meeting.segments:
+        _generate_and_store_summary(db, meeting)
+        meeting = crud.get_meeting(db, meeting.id)
     return crud.build_detail(meeting)
 
 
@@ -145,6 +166,22 @@ async def create_meeting_from_upload(
     meeting = crud.create_meeting(
         db, payload, segments=_segments_from_parsed(parsed), organizer_id=user.id
     )
+    _generate_and_store_summary(db, meeting)
+    meeting = crud.get_meeting(db, meeting.id)
+    return crud.build_detail(meeting)
+
+
+@router.post(
+    "/{meeting_id}/regenerate-summary", response_model=schemas.MeetingDetail
+)
+def regenerate_summary(
+    meeting_id: str, db: Session = Depends(get_db)
+) -> schemas.MeetingDetail:
+    meeting = crud.get_meeting(db, meeting_id)
+    if meeting is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Meeting not found")
+    _generate_and_store_summary(db, meeting)
+    meeting = crud.get_meeting(db, meeting_id)
     return crud.build_detail(meeting)
 
 
