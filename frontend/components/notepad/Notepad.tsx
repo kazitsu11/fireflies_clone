@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DetailHeader } from "./DetailHeader";
 import { InsightsPanel } from "./InsightsPanel";
+import { MediaPlayer } from "./MediaPlayer";
+import { PlayerProvider } from "./PlayerContext";
 
 type Tab = "summary" | "transcript";
 
@@ -42,14 +44,12 @@ export function Notepad({ id }: { id: string }) {
   }
 
   return (
+    <PlayerProvider>
     <div className="flex h-full flex-col">
       <DetailHeader meeting={meeting} />
 
-      {/* MediaPlayer — wired in step 12 */}
-      <div className="border-b bg-card px-4 py-4 sm:px-6">
-        <div className="rounded-lg border border-dashed p-3 text-center text-sm text-muted-foreground">
-          Media player — step 12
-        </div>
+      <div className="border-b bg-card px-4 py-3 sm:px-6">
+        <MediaPlayer src={meeting.audio_url ?? "/sample-audio.mp3"} />
       </div>
 
       {/* Tab switcher (under lg only) */}
@@ -110,6 +110,7 @@ export function Notepad({ id }: { id: string }) {
         </section>
       </div>
     </div>
+    </PlayerProvider>
   );
 }
 
