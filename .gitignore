@@ -1,0 +1,21 @@
+# Python
+backend/venv/
+__pycache__/
+*.pyc
+*.pyo
+backend/fireflies.db
+.env
+.env.*
+
+# Node / Next.js (added in the frontend phase)
+node_modules/
+.next/
+out/
+build/
+frontend/.env*.local
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
