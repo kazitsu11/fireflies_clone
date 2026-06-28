@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Bell, PanelLeft, Plus, Search, Settings } from "lucide-react";
 
 import { api } from "@/lib/api";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -77,6 +78,8 @@ export function Topbar({ onToggleSidebar }: { onToggleSidebar: () => void }) {
           <Plus className="size-4" />
           <span className="hidden sm:inline">New meeting</span>
         </Button>
+
+        <ThemeToggle />
 
         {/* Notifications */}
         <DropdownMenu>

@@ -24,7 +24,7 @@ export function Chapters({
             <h4 className="font-medium leading-snug">{ch.title}</h4>
             <button
               onClick={() => onJump(ch.start_ms)}
-              className="inline-flex shrink-0 items-center gap-1 rounded-md bg-violet-50 px-1.5 py-0.5 text-xs font-medium tabular-nums text-violet-700 outline-none transition-colors hover:bg-violet-100 focus-visible:ring-2 focus-visible:ring-ring"
+              className="inline-flex shrink-0 items-center gap-1 rounded-md bg-violet-50 px-1.5 py-0.5 text-xs font-medium tabular-nums text-violet-700 outline-none transition-colors hover:bg-violet-100 focus-visible:ring-2 focus-visible:ring-ring dark:bg-violet-500/15 dark:text-violet-300 dark:hover:bg-violet-500/25"
               aria-label={`Jump to ${msToClock(ch.start_ms)}`}
             >
               <Play className="size-3 fill-current" />

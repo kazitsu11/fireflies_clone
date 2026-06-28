@@ -22,8 +22,10 @@ function renderText(text: string, query?: string, current?: boolean): ReactNode 
       <mark
         key={key++}
         className={cn(
-          "rounded-sm px-0.5 text-foreground",
-          current ? "bg-amber-300" : "bg-amber-200/70",
+          "rounded-sm px-0.5",
+          current
+            ? "bg-amber-300 text-amber-950 dark:bg-amber-400/60 dark:text-amber-50"
+            : "bg-amber-200/70 text-amber-950 dark:bg-amber-400/25 dark:text-amber-100",
         )}
       >
         {text.slice(idx, idx + q.length)}

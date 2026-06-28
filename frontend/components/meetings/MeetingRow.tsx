@@ -69,7 +69,7 @@ export function MeetingRow({ meeting }: { meeting: MeetingListItem }) {
         }}
         className="group flex cursor-pointer items-center gap-3 px-4 py-3 outline-none transition-colors hover:bg-accent/60 focus-visible:bg-accent/60 sm:gap-4 sm:px-5"
       >
-        <div className="grid size-10 shrink-0 place-items-center rounded-lg bg-violet-50 text-violet-600">
+        <div className="grid size-10 shrink-0 place-items-center rounded-lg bg-violet-50 text-violet-600 dark:bg-violet-500/15 dark:text-violet-300">
           <NotebookText className="size-5" />
         </div>
 
@@ -97,7 +97,7 @@ export function MeetingRow({ meeting }: { meeting: MeetingListItem }) {
             <Badge
               key={k.id}
               variant="secondary"
-              className="bg-violet-50 font-normal text-violet-700"
+              className="bg-violet-50 font-normal text-violet-700 dark:bg-violet-500/15 dark:text-violet-300"
             >
               {k.term}
             </Badge>
