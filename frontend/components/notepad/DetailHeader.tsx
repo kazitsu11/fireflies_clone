@@ -22,6 +22,7 @@ import {
 import { api } from "@/lib/api";
 import type { MeetingDetail, ParticipantInput } from "@/lib/types";
 import { absoluteDate, formatDuration } from "@/lib/time";
+import { exportMeeting } from "@/lib/export";
 import { ParticipantStack } from "@/components/meetings/ParticipantStack";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -155,9 +156,20 @@ export function DetailHeader({ meeting }: { meeting: MeetingDetail }) {
                 <Sparkles className="size-4" /> Regenerate notes
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => toast.info("Download will be available soon.")}
+                onClick={() => {
+                  exportMeeting(meeting, "md");
+                  toast.success("Downloaded Markdown");
+                }}
               >
-                <Download className="size-4" /> Download
+                <Download className="size-4" /> Download Markdown
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  exportMeeting(meeting, "txt");
+                  toast.success("Downloaded text");
+                }}
+              >
+                <Download className="size-4" /> Download text
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem variant="destructive" onClick={() => setDeleteOpen(true)}>
