@@ -11,11 +11,21 @@ AI Q&A panel.
 
 ## Screenshots
 
-> _Placeholder — add screenshots / a GIF here._
->
-> - `docs/dashboard.png` — meetings dashboard
-> - `docs/notepad.png` — the Notepad (player + summary + synced transcript)
-> - `docs/create.png` — create flow · `docs/search.png` — global search · `docs/dark.png` — dark mode
+**Meetings dashboard** — search, filters, tag chips, participant avatars.
+![Meetings dashboard](docs/dashboard.png)
+
+**Notepad** — media player, AI summary + chapters + action items, and the
+interactive transcript that two-way-syncs with the player.
+![Notepad](docs/notepad.png)
+
+**Create a meeting** — upload or paste a transcript (`.txt`/`.vtt`/`.json`), or enter it manually.
+![Create flow](docs/create.png)
+
+**Global search** — across every meeting's title and transcript.
+![Global search](docs/search.png)
+
+**Dark mode** — cookie-persisted theme toggle.
+![Dark mode](docs/dark.png)
 
 ## Tech stack
 
