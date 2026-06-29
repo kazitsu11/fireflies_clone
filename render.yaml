@@ -1,22 +1,10 @@
 # Render Blueprint for the FastAPI backend.
 # SQLite is ephemeral on Render's filesystem and resets on redeploy, so the
 # start command reseeds on boot — `python -m app.seed` runs create_all + a
-# wipe-and-reseed, guaranteeing the 5 demo meetings are always present.
-services:
-  - type: web
-    name: fireflies-clone-api
-    runtime: python
-    rootDir: backend
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python -m app.seed && uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    envVars:
-      - key: PYTHON_VERSION
-        value: "3.13.0"
+# wipe-and-reseed, guaranteeing the 5 demo meetings are always present
       # Set to the deployed Vercel URL (e.g. https://fireflies-clone.vercel.app).
       # localhost:3000 is always allowed; this adds the production origin.
-      - key: CORS_ORIGINS
-        sync: false
+      
       # Optional — set to enable the LLM summarizer + AI Q&A. Leave unset for the
       # bulletproof keyless demo.
       # - key: ANTHROPIC_API_KEY
